@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+    <form action="{% url 'registration' %}" class="mb-5" method="post">
+    {% csrf_token %}
+        <div class="container-xxl-fluid text-white" style="font-size: 1.6vmax">
+            <div class="row">
+                <p class="mx-auto mb-5 text-center text-white border-bottom border-warning border-2 rounded-pill col-12" style="font-size: 2vmax; width: 50%; height: 10%">Регистрация</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label>{{ form.first_name.label_tag }}</label>
+                    <p>{{ form.first_name }}</p>
+                </div>
+                <div class="col-lg-4 my-3">
+                    <label>{{ form.last_name.label_tag }}</label>
+                    <p>{{ form.last_name }}</p>
+                </div>
+                <div class="col-lg-4 my-3">
+                    <label>{{ form.age.label_tag }}</label>
+                    <p>{{ form.age }}</p>
+                </div>
+                <div class="col-12 my-3">
+                    <label>{{ form.username.label_tag }}</label>
+                    <p>{{ form.username }}</p>
+                </div>
+                <div class="col-lg-6 my-3">
+                    <label>{{ form.password1.label_tag }}</label>
+                    <p>{{ form.password1 }}</p>
+                </div>
+                <div class="col-lg-6 my-3">
+                    <label>{{ form.password2.label_tag }}</label>
+                    <p>{{ form.password2 }}</p>
+                </div>
+                <div class="col-lg-6 my-3">
+                    <label>{{ form.grade.label_tag }}</label>
+                    <p>{{ form.grade }}</p>
+                </div>
+                <div class="col-12 my-3">
+                    <label>В каких ниже перечисленных играх принимаешь участие? (ctrl / cmd - выбрать несколько)</label>
+                    <p>{{ form.game_modes }}</p>
+                </div>
+                <div class="col-lg-6 my-3">
+                    <label>{{ form.vk.label_tag }}</label>
+                    <p>{{ form.vk }}</p>
+                </div>
+                <div class="col-12 mt-3">
+                    <label>{{ form.email.label_tag }}</label>
+                    <p>{{ form.email }}</p>
+                </div>
+                <button type="submit" class="btn btn-outline-warning col-xs-6 col-sm-6 col-lg-2 mx-xs-auto mx-sm-auto mx-lg-2 my-5" style="font-size: 1.8vmax">Отправить заявку</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="alert alert-dark border border-1 border-warning border-top-0 rounded-bottom py-3 px-3 text-white" style="font-size: 1.6vmax; background-color: #0c1830">
+        <p class="pb-2">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+        <p>{{ request.user.username }}</p>
+        <p class="text-muted" style="font-size: 1.4vmax">Участник с {{ request.user.date_joined.date }}</p>
+        <p>{{ request.user.age }} лет</p>
+        <a type="button" class="btn btn-outline-warning text-light col-lg-3 my-3" href="{% url 'edit_account' %}" style="font-size: 1.5vmax">Настроить профиль</a>
+        {% if request.user.is_superuser %}
+            <a type="button" class="btn btn-outline-danger text-light col-lg-3 my-3" href="{% url 'admin:index' %}" style="font-size: 1.5vmax">Панель администрации</a>
+        {% endif %}
+        <br>
+        <div class="btn-group mt-4">
+            <a type="button" class="btn btn-secondary disabled" href="{% url 'user_games' %}" style="font-size: 1.6vmax" aria-disabled="true">История моих игр</a>
+            <a type="button" class="btn btn-secondary" href="{% url 'profile' %}" style="font-size: 1.6vmax">Статистика</a>
+        </div>
+    </div>
+    <div class="row">
+        {% if games %}
+            <table class="table table-dark table-striped table-hover my-3 mb-5 mx-auto" style="font-size: 1.6vmax">
+                <thead>
+                    <tr class="text-muted">
+                        <th scope="col">Дата</th>
+                        <th scope="col">Режим</th>
+                        <th scope="col">Результат</th>
+                        <th scope="col" colspan="2">Счет</th>
+                    </tr>
+                </thead>
+                {% for game, result in games.items %}
+                    <tbody>
+                        <tr onclick="window.location.href='{% url 'game_info' game.pk %}'; return false" style="cursor: pointer">
+                            <td scope="row">{{ game.date }}</td>
+                            <td>{{ game.game_mode.name }}</td>
+                            <td>{% if result %}<p style="color: #5dbb29" class="my-auto">Победа</p>{% else %}<p style="color: #d64242" class="my-auto">Поражение</p>{% endif %}</td>
+                            <td>{{ game.get_teams.0.score }} : {{ game.get_teams.1.score }}</td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </symbol>
+            </svg>
+            <div class="alert alert-dark d-flex align-items-center col-6 mx-auto" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                <div class="mx-auto" style="font-size: 1.6vmax">
+                    Здесь будет отображаться история ваших игр!
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <meta name="yandex-verification" content="8b06efc922c10ea2" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Уже этой зимой на каникулах проходит первый киберспортивный турнир Лицея 64
+    Приморского района! Турнир будет проводиться полностью дистанционно. Он включает в себя целых 6 различных
+    дисциплин, начиная со всеми известного Counter Strike Global Offensive, заканчивая скоростным поиском в
+    интернете! Да-да, у нас будет и такое! На нашем сайте Вам будет предоставлена информация о большинстве из
+    дисциплин. А также здесь будут опубликовываться итоги.">
+    <meta name="keywords" content="турнир, киберспорт, лицей64, лицей, ксго, игры, дота">
+    <link rel=”icon” href=”favicon.png” type=”image/png”>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <style>
+    .Site {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    .Site-content {
+        flex: 1;
+    }
+
+    body {
+        background-color: #1a1a1d;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    .accordion-button:after {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+        $accordion-button-active-color: shade-color($warning, 10%)
+    }
+    </style>
+</head>
+<body class="Site">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark col-12 text-sm-center text-xs-center border-bottom border-secondary" style="background-color: #0c1830">
+                <a class="navbar-brand mb-2 ms-2" style="font-size: 3vmax" href="{% url 'home' %}">Lyceum</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="width: 5rem; height: 5rem"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <hr class="dropdown-divider white" style="color: white;">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-end" style="font-size: 1.8vmax">
+                        <li class="nav-item my-2">
+                            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Главная</a>
+                        </li>
+                        <li class="nav-item my-2">
+                            <a class="nav-link" href="{% url 'games' %}">Игры</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item dropdown my-2">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Мой аккаунт
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-center float-end border-0" aria-labelledby="navbarDropdown" style="font-size: 1.7vmax; max-width: 100px; background-color: #0c1830">
+                                    <li><a class="dropdown-item me-3 py-2 text-light" href="{% url 'profile' %}">{{ request.user }}</a></li>
+                                    <li><hr class="dropdown-divider my-3"></li>
+                                    <li><a class="dropdown-item me-3 py-2" href="{% url 'logout' %}">Выйти</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item my-2">
+                                <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <main class="Site-content">
+        <div class="container-lg px-sm-4">
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+    <footer class="bd-footer text-light" style="flex-shrink: 0; background-color: #0c1830">
+        <div class="container py-4">
+            <div class="row">
+                <div class="text-start col-sm-9 col-lg-6">
+                    <h6 style="font-size: 1vmax">© 2021-2022 Олег Яковлев | Филипп Смирнов</h6>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-lg-6 align-items-center">
+                    <h6 style="font-size: 1vmax" class="float-end">fsr.filipp@gmail.com</h6>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</html>

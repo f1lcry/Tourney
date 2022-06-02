@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'login' %}" method="post" class="form-horizontal needs-validation" novalidate>
+        {% csrf_token %}
+            <div class="container-fluid text-white" style="font-size: 1.8vmax">
+                <div class="row">
+                    <p class="mx-auto mb-5 text-center text-white border-bottom border-warning border-2 rounded-pill col-12" style="font-size: 2vmax; width: 50%; height: 10%">Вход</p>
+                </div>
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <label>{{ form.username.label_tag }}</label>
+                        <p>{{ form.username }}</p>
+<!--                        <div class="invalid-feedback">-->
+<!--                            Пожалуйста, введите верное имя пользователя.-->
+<!--                        </div>-->
+                    </div>
+                    <div class="col-12 my-3">
+                        <label>{{ form.password.label_tag }}</label>
+                        <p>{{ form.password }}</p>
+<!--                        <div class="invalid-feedback">-->
+<!--                            Пожалуйста, введите верный пароль.-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-warning float-start" style="font-size: 1.8vmax">Войти</button>
+                    <span class="float-start ms-2 mt-2" style="font-size: 1.5vmax">Ещё не зарегистрированы? <a href="{% url 'registration' %}" class="py-auto">Подайте заявку на участие прямо сейчас!</a></span>
+                </div>
+            </div>
+    </form>
+{% endblock %}

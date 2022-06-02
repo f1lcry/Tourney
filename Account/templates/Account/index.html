@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="alert alert-dark border border-1 border-warning border-top-0 rounded-bottom py-3 px-3 text-white" style="font-size: 1.6vmax; background-color: #0c1830">
+        <p class="pb-2">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+        <p>{{ request.user.username }}</p>
+        <p class="text-muted" style="font-size: 1.4vmax">Участник с {{ request.user.date_joined.date }}</p>
+        <p>{{ request.user.age }} лет</p>
+        <a type="button" class="btn btn-outline-warning text-light col-lg-3 my-3" href="{% url 'edit_account' %}" style="font-size: 1.5vmax">Настроить профиль</a>
+        {% if request.user.is_superuser %}
+            <a type="button" class="btn btn-outline-danger text-light col-lg-3 my-3" href="{% url 'admin:index' %}" style="font-size: 1.5vmax">Панель администрации</a>
+        {% endif %}
+        <br>
+        <div class="btn-group mt-4">
+            <a type="button" class="btn btn-secondary" href="{% url 'user_games' %}" style="font-size: 1.6vmax">История моих игр</a>
+            <a type="button" class="btn btn-secondary disabled" href="{% url 'profile' %}" style="font-size: 1.6vmax" aria-disabled="true">Статистика</a>
+        </div>
+    </div>
+    <div class="row text-center" style="font-size: 1.6vmax">
+        <div class="alert bg-dark my-3 mx-auto col-3 text-white">
+            <p class="fw-bold">{{ request.user.get_games|length }}</p>
+            <p>Матчей</p>
+        </div>
+        <div class="alert bg-dark my-3 mx-auto col-3 text-white">
+            <p class="fw-bold">{{ request.user.get_win_rate }}</p>
+            <p>Процент побед %</p>
+        </div>
+        <div class="alert bg-dark my-3 mx-auto col-3 text-white">
+            <p class="fw-bold">{{ request.user.get_av_kd }}</p>
+            <p>Средний K/D в CS:GO</p>
+        </div>
+    </div>
+{% endblock %}

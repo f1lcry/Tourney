@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+    <form action="{% url 'edit_account' %}" method="post">
+    {% csrf_token %}
+        <div class="container-xxl-fluid text-white" style="font-size: 1.6vmax">
+            <div class="row">
+                <p class="mx-auto mb-5 text-center text-white border-bottom border-warning border-2 rounded-pill col-12" style="font-size: 1.8vmax; width: 50%; height: 10%">Редактирование профиля</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label>{{ form.first_name.label_tag }}</label>
+                    <p>{{ form.first_name }}</p>
+                </div>
+                <div class="col-lg-4 my-3">
+                    <label>{{ form.last_name.label_tag }}</label>
+                    <p>{{ form.last_name }}</p>
+                </div>
+                <div class="col-12 my-3">
+                    <label>{{ form.username.label_tag }}</label>
+                    <p>{{ form.username }}</p>
+                </div>
+                </div>
+                <div class="col-lg-6 my-3">
+                    <label>{{ form.vk.label_tag }}</label>
+                    <p>{{ form.vk }}</p>
+                </div>
+                <div class="col-12 my-3">
+                    <label>{{ form.email.label_tag }}</label>
+                    <p>{{ form.email }}</p>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-warning col-lg-4 my-3 me-3" style="font-size: 1.6vmax">Подтвердить изменения</button>
+                    <a type="button" class="btn btn-outline-warning text-light col-lg-3 my-3" onclick="javascript:history.back(); return false;" style="font-size: 1.3vmax">Вернуться, не сохраняя</a>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
